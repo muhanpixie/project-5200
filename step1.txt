@@ -1,0 +1,44 @@
+step 1: download data
+follow https://github.com/Kaggle/kaggle-api
+pip3 install kaggle
+
+
+after all:
+./.local/bin/kaggle datasets download -d mkechinov/ecommerce-behavior-data-from-multi-category-store
+
+unzip the file and move it to directory.
+cd
+mkdir project
+mv 2019-Oct.csv ~/project/
+cd project
+mv 2019-Oct.csv data.csv
+
+step 2: load data into database
+hdfs dfs -mkdir project
+hdfs dfs -put project/data.csv project/
+
+create table
+
+drop table if exists project_table;
+
+create external table project_table (
+    event_time timestamp,
+    event_type string,
+    product_id int,
+    category_id int,
+    category_code string,
+    brand string,
+    price float,
+    user_id int,
+    user_session string
+)
+row format delimited fields terminated by ','
+location 'project'
+tblproperties("skip.header.line.count"="1");
+
+select count(*) from project_table;
+total: 42448764 
+
+step 3: anyles
+
+
