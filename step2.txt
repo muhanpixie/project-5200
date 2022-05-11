@@ -1,0 +1,56 @@
+1.
+select event_type, count(*) from project_table group by event_type;
+
+2.
+select brand, count(*) cnt 
+from project_table 
+where brand is not null and brand != ''
+group by brand
+order by cnt desc
+limit 5;
+
+
+3.
+select max(price) from project_table; 
+2574.07
+select min(price) from project_table;
+0.0
+select avg(price) from project_table;
+292.46
+
+select price_range, count(*) as purchase_ct
+from(
+    select case 
+        when price <= 50 then '0-50'
+        when price > 50 and price <= 100 then '50-100'
+        when price > 100 and price <= 200 then '100-200'
+        when price > 200 and price <= 300 then '200-300'
+        when price > 300 and price <= 400 then '300-400'
+        when price > 400 and price <= 500 then '400-500'
+        when price > 500 and price <= 1000 then '500-1000'
+        else 'over 1000'
+        end as price_range
+    from project_table
+    where event_type = 'purchase'
+) as price_summary
+group by price_range;
+
+{
+    '0-50': 152856, 
+    '50-100': 114018, 
+    '100-200': 244631, 
+    '200-300': 134998, 
+    '300-400': 63640, 
+    '400-500': 44665, 
+    '500-1000': 116348, 
+    '1000+': 45783
+}
+
+4.
+select hour(event_time) event_hour, count(*) 
+from project_table
+where event_type = 'purchase' and event_time is not null
+group by hour(event_time);
+
+
+

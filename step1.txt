@@ -9,15 +9,17 @@ after all:
 unzip the file and move it to directory.
 cd
 mkdir project
-mv 2019-Oct.csv ~/project/
+mv 2019-Nov.csv ~/project/
 cd project
-mv 2019-Oct.csv data.csv
+mv 2019-Nov.csv data.csv
 
 step 2: load data into database
 hdfs dfs -mkdir project
 hdfs dfs -put project/data.csv project/
 
-create table
+beeline:
+
+create table:
 
 drop table if exists project_table;
 
@@ -39,6 +41,6 @@ tblproperties("skip.header.line.count"="1");
 select count(*) from project_table;
 total: 42448764 
 
-step 3: anyles
+
 
 

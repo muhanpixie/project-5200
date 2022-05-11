@@ -1,0 +1,122 @@
+<!--
+  THIS EXAMPLE WAS DOWNLOADED FROM https://echarts.apache.org/examples/en/editor.html?c=bar-tick-align
+-->
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+<head>
+  <meta charset="utf-8">
+</head>
+<body style="height: 100%; margin: 0">
+  <div id="container" style="height: 100%"></div>
+  
+  <script type="text/javascript" src="lib.txt"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.3.2/dist/echarts.min.js"></script>
+  <!-- Uncomment this line if you want to dataTool extension
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.3.2/dist/extension/dataTool.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use gl extension
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to echarts-stat extension
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use map
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/js/china.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+  -->
+  <!-- Uncomment these two lines if you want to use bmap extension
+  <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.3.2/dist/extension/bmap.min.js"></script>
+  -->
+  <script>
+    const time_data = {
+        0: 448734, 
+        1: 843397, 
+        2: 1676249, 
+        3: 2399278, 
+        4: 3066909, 
+        5: 3444239, 
+        6: 3554901, 
+        7: 3584742, 
+        8: 3689021,
+        9: 3653758, 
+        10: 3627788, 
+        11: 3582860, 
+        12: 3588308, 
+        13: 3908344, 
+        14: 4335113, 
+        15: 4451101, 
+        16: 4511068, 
+        17: 4415833, 
+        18: 3266804, 
+        19: 2375711, 
+        20: 1431589, 
+        21: 825518, 
+        22: 480585, 
+        23: 340129
+      }
+    let time_xs = [], time_ys = [];
+    for(let i = 0; i < 24; ++i){
+      let x_data = `${i}:00 to ${i+1}:00`;
+      time_xs.push(x_data);
+      time_ys.push(time_data[i])
+    }
+  </script>
+  <script type="text/javascript">
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom, 'dark', {
+      renderer: 'canvas',
+      useDirtyRect: false
+    });
+    var app = {};
+    
+    var option;
+
+    option = {
+      title: {
+        text: 'Purchase time'
+      },
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'shadow'
+    }
+  },
+  grid: {
+    left: '3%',
+    right: '4%',
+    bottom: '3%',
+    containLabel: true
+  },
+  xAxis: [
+    {
+      type: 'category',
+      data: time_xs,
+      axisTick: {
+        alignWithLabel: true
+      }
+    }
+  ],
+  yAxis: [
+    {
+      type: 'value'
+    }
+  ],
+  series: [
+    {
+      name: 'purchase',
+      type: 'bar',
+      barWidth: '60%',
+      data: time_ys
+    }
+  ]
+};
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+  </script>
+</body>
+</html>
